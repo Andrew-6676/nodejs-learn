@@ -4,14 +4,16 @@
   "description": "",
   "main": "task-1.1.js",
   "scripts": {
-    "task1": "nodemon task-1.1.js",
-    "task2": "nodemon task-1.2.js",
-    "task3": "nodemon task-1.3.js",
+    "task1": "nodemon --exec babel-node task-1.1.js",
+    "task2": "nodemon --exec babel-node task-1.2.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrei Shauniou",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
   },
