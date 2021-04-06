@@ -1,0 +1,39 @@
+{
+  "name": "task2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "start:dev": "nodemon --exec babel-node src/server.js",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrew-6676/nodejs-learn.git"
+  },
+  "author": "Andrei Shauniou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andrew-6676/nodejs-learn/issues"
+  },
+  "homepage": "https://github.com/Andrew-6676/nodejs-learn#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.12",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.23.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-status-codes": "^2.1.4",
+    "standard": "^16.0.3",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  }
+}
