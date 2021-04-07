@@ -1,6 +1,7 @@
 import express from 'express';
 
 import errorHandler from './error-handler';
+import requestLogger from './request-logger';
 import userRouter from './user-router';
 import config from './config';
 import logger from './logging';
@@ -8,6 +9,7 @@ import logger from './logging';
 const app = express();
 const port = config.PORT;
 
+app.use(requestLogger);
 app.use(express.json());
 
 app.use('/users', userRouter);

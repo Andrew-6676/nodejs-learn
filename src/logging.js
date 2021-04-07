@@ -38,8 +38,8 @@ const options = {
 };
 
 const logger = winston.createLogger({
-    transports: [new winston.transports.File(options.fileError), new winston.transports.File(options.fileInfo)],
-    exceptionHandlers: [new winston.transports.File(options.fileUnhandled)]
+    // transports: [new winston.transports.File(options.fileError), new winston.transports.File(options.fileInfo)],
+    // exceptionHandlers: [new winston.transports.File(options.fileUnhandled)]
 });
 
 if (process.env.NODE_ENV === 'development') {
