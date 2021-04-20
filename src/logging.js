@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import { format } from 'winston';
 
-import config from './config';
+import config from './config/config';
 
 const _format = format.combine(format.timestamp(), format.prettyPrint());
 

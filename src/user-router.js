@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import express from 'express';
-import users from './user';
+import users from './routers/user';
 import { validator, userSchema } from './validators';
 const userRouter = express.Router();
 

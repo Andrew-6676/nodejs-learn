@@ -1,7 +1,7 @@
 import { filter, find, merge, take } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
-import logger from './logging';
+import logger from '../logging';
 
 class Users {
     constructor() {
