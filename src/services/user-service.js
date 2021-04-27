@@ -1,13 +1,56 @@
-const usersRepo = require('./user.db.repository');
+import { Op } from 'sequelize';
 
-const get = (id) => usersRepo.get(id);
+import logger from '../config/logging';
+import { User } from '../models/user-model';
 
-const save = (user) => usersRepo.save(user);
+class UserService {
+    constructor() {}
 
-const update = (id, user) => usersRepo.update(id, user);
+    async add(user) {
+        user.isDeleted = false;
+        const newUser = await User.create(user);
+        logger.debug(`New user created: ${newUser.id}`);
+        return newUser.id;
+    }
 
-const remove = async (id) => {
-    await usersRepo.remove(id);
-};
+    async update(id, updatedUser) {
+        const res = await User.update(updatedUser, {
+            where: { id }
+        });
+        logger.debug(`user [${updatedUser.id}] updated`);
+        return res;
+    }
 
-module.exports = { get, save, update, remove };
+    async delete(id) {
+        const res = await User.update(
+            { isDeleted: true },
+            {
+                where: { id }
+            }
+        );
+        console.log('====> delete', res);
+        return res;
+    }
+
+    async get(id) {
+        if (id) {
+            const user = await User.findByPk(id);
+            return user.toJSON();
+        }
+
+        const users = await User.findAll({
+            where: { isDeleted: false }
+        });
+        return users.map((u) => u.toJSON());
+    }
+
+    async getAutoSuggestUsers(loginSubstring, limit) {
+        const users = await User.findAll({
+            where: { [Op.and]: [{ login: { [Op.startsWith]: loginSubstring } }, { isDeleted: false }] },
+            limit
+        });
+        return users.map((u) => u.toJSON());
+    }
+}
+
+export default new UserService();

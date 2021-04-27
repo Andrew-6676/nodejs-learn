@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import { format } from 'winston';
 
-import config from './config/config';
+import config from './config';
 
 const _format = format.combine(format.timestamp(), format.prettyPrint());
 
@@ -41,6 +41,8 @@ const logger = winston.createLogger({
     // transports: [new winston.transports.File(options.fileError), new winston.transports.File(options.fileInfo)],
     // exceptionHandlers: [new winston.transports.File(options.fileUnhandled)]
 });
+
+console.log('=========================>', process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'development') {
     logger.add(

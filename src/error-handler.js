@@ -1,8 +1,8 @@
 import { StatusCodes, statusCode } from 'http-status-codes';
-import logger from './logging';
+import logger from './config/logging';
 
 const handle = (err, req, res, next) => {
-    console.log('==============> ERROR HANDLER');
+    console.log('==============> ERROR HANDLER', err);
     if (err.status) {
         res.status(err.status).send(err.message);
     } else {

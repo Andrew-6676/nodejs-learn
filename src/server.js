@@ -2,13 +2,12 @@ import express from 'express';
 
 import errorHandler from './error-handler';
 import requestLogger from './request-logger';
-import userRouter from './user-router';
+import userRouter from './routers/user-router';
 import config from './config/config';
-import logger from './logging';
+import logger from './config/logging';
 import sequelize from './data-access/data';
 
 const app = express();
-const port = config.PORT;
 
 app.use(requestLogger);
 app.use(express.json());
@@ -24,8 +23,8 @@ sequelize
     .authenticate()
     .then(() => {
         logger.info('Connection has been established successfully.');
-        app.listen(port, () => {
-            logger.info(`Task_3 app listening at http://localhost:${port}`);
+        app.listen(config.PORT, () => {
+            logger.info(`Task_3 app listening at http://localhost:${config.PORT}`);
         });
     })
     .catch((error) => {

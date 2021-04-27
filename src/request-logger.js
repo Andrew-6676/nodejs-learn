@@ -1,4 +1,4 @@
-import logger from './logging';
+import logger from './config/logging';
 
 const handle = (req, res, next) => {
     logger.debug(`${req.method}: ${req.path}`);
