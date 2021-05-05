@@ -1,9 +1,8 @@
-import * as winston from 'winston';
-import { format } from 'winston';
+const winston = require('winston');
 
-import config from './config';
+const config = require('./config');
 
-const _format = format.combine(format.timestamp(), format.prettyPrint());
+const _format = winston.format.combine(winston.format.timestamp(), winston.format.prettyPrint());
 
 const options = {
     fileUnhandled: {
@@ -48,7 +47,7 @@ if (process.env.NODE_ENV === 'development') {
     logger.add(
         new winston.transports.Console({
             level: 'debug',
-            format: format.combine(format.colorize(), format.cli()),
+            format: winston.format.combine(winston.format.colorize(), winston.format.cli()),
             handleExceptions: true,
             colorize: true
         })
@@ -59,4 +58,4 @@ logger.stream = {
     write: (message) => logger.info(message)
 };
 
-export default logger;
+module.exports = logger;
