@@ -1,10 +1,10 @@
 import { Model, DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
-import sequelize from '../data-access/data';
+import sequelize from '../data-access/db';
 
-export class User extends Model {}
+export class UserModel extends Model {}
 
-User.init(
+UserModel.init(
     {
         id: {
             type: DataTypes.STRING,

@@ -1,11 +1,11 @@
 import express from 'express';
 
-import errorHandler from './error-handler';
-import requestLogger from './request-logger';
-import userRouter from './routers/user-router';
+import errorHandler from './api/middlewares/error-handler';
+import requestLogger from './api/middlewares/request-logger';
+import userRouter from './api/routers/user-router';
 import config from './config/config';
 import logger from './config/logging';
-import sequelize from './data-access/data';
+import sequelize from './data-access/db';
 
 const app = express();
 
@@ -14,10 +14,6 @@ app.use(express.json());
 
 app.use('/users', userRouter);
 app.use(errorHandler);
-
-logger.info('test');
-logger.error('test');
-logger.debug('test');
 
 sequelize
     .authenticate()

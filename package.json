@@ -7,6 +7,8 @@
     "build": "babel ./src --out-dir dist",
     "start": "node ./dist/server.js",
     "start:dev": "nodemon --exec babel-node src/server.js",
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed:down": "npx sequelize-cli db:seed:undo:all",
     "lint": "eslint ./ --ignore-path .gitignore --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,10 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 import express from 'express';
 
-import { validator } from '../validators';
-import userService from '../services/user-service';
+import { validator } from '../middlewares/validators';
+import UserService from '../../services/user-service';
 
 const userRouter = express.Router();
+const userService = new UserService();
 
 userRouter.get('/', async (req, res) => {
     res.status(StatusCodes.OK).send(await userService.get());

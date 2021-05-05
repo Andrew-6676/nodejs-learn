@@ -1,56 +1,40 @@
-import { Op } from 'sequelize';
-
 import logger from '../config/logging';
-import { User } from '../models/user-model';
+import UserRepository from '../data-access/userRepository';
+import { UserModel } from '../models/user-model';
 
 class UserService {
-    constructor() {}
+    constructor() {
+        this.userRepository = new UserRepository(UserModel);
+    }
 
     async add(user) {
         user.isDeleted = false;
-        const newUser = await User.create(user);
+        const newUser = await this.userRepository.create(user);
         logger.debug(`New user created: ${newUser.id}`);
         return newUser.id;
     }
 
     async update(id, updatedUser) {
-        const res = await User.update(updatedUser, {
-            where: { id }
-        });
+        const res = await this.userRepository.update(id, updatedUser);
         logger.debug(`user [${updatedUser.id}] updated`);
         return res;
     }
 
     async delete(id) {
-        const res = await User.update(
-            { isDeleted: true },
-            {
-                where: { id }
-            }
-        );
-        console.log('====> delete', res);
-        return res;
+        return await this.userRepository.delete(id);
     }
 
     async get(id) {
         if (id) {
-            const user = await User.findByPk(id);
-            return user.toJSON();
+            return await this.userRepository.getById(id);
         }
 
-        const users = await User.findAll({
-            where: { isDeleted: false }
-        });
-        return users.map((u) => u.toJSON());
+        return await this.userRepository.getAll();
     }
 
     async getAutoSuggestUsers(loginSubstring, limit) {
-        const users = await User.findAll({
-            where: { [Op.and]: [{ login: { [Op.startsWith]: loginSubstring } }, { isDeleted: false }] },
-            limit
-        });
-        return users.map((u) => u.toJSON());
+        return await this.userRepository.autoSuggestUsers(loginSubstring, limit);
     }
 }
 
-export default new UserService();
+export default UserService;
