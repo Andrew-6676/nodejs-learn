@@ -1,15 +1,12 @@
-import { Model, DataTypes } from 'sequelize';
-import { v4 as uuidv4 } from 'uuid';
-import sequelize from '../data-access/db';
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('../data-access/connection');
 
-export class UserModel extends Model {}
-
-UserModel.init(
+const UserModel = Model.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
             primaryKey: true,
-            defaultValue: () => uuidv4()
+            defaultValue: DataTypes.UUIDV4
         },
         login: DataTypes.STRING,
         password: DataTypes.STRING,
@@ -21,3 +18,5 @@ UserModel.init(
     },
     { sequelize, modelName: 'user', timestamps: false }
 );
+
+module.exports = UserModel;

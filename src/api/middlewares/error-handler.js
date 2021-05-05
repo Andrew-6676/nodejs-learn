@@ -1,8 +1,7 @@
-import { StatusCodes, statusCode } from 'http-status-codes';
-import logger from '../../config/logging';
+const { StatusCodes, statusCode } = require('http-status-codes');
+const logger = require('../../config/logging');
 
-const handle = (err, req, res, next) => {
-    console.log('==============> ERROR HANDLER', err);
+const handler = (err, req, res, next) => {
     if (err.status) {
         res.status(err.status).send(err.message);
     } else {
@@ -12,4 +11,4 @@ const handle = (err, req, res, next) => {
     next();
 };
 
-export default handle;
+module.exports = handler;

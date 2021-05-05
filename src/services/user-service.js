@@ -1,6 +1,6 @@
-import logger from '../config/logging';
-import UserRepository from '../data-access/userRepository';
-import { UserModel } from '../models/user-model';
+const logger = require('../config/logging');
+const UserRepository = require('../data-access/userRepository');
+const UserModel = require('../models/user-model');
 
 class UserService {
     constructor() {
@@ -37,4 +37,4 @@ class UserService {
     }
 }
 
-export default UserService;
+module.exports = UserService;

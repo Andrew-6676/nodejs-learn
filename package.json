@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel ./src --out-dir dist",
-    "start": "node ./dist/server.js",
-    "start:dev": "nodemon --exec babel-node src/server.js",
+    "start": "node src/app.js",
+    "start:dev": "nodemon src/app.js",
     "seed": "npx sequelize-cli db:seed:all",
     "seed:down": "npx sequelize-cli db:seed:undo:all",
     "lint": "eslint ./ --ignore-path .gitignore --fix",
@@ -23,10 +22,6 @@
   },
   "homepage": "https://github.com/Andrew-6676/nodejs-learn#readme",
   "devDependencies": {
-    "@babel/cli": "^7.13.14",
-    "@babel/core": "^7.13.14",
-    "@babel/node": "^7.13.13",
-    "@babel/preset-env": "^7.13.12",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.23.0",
     "nodemon": "^2.0.7",

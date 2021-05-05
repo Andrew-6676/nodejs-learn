@@ -1,12 +1,12 @@
-import { Op } from 'sequelize';
+const { Op } = require('sequelize');
 
 class Mapper {
     toDomain(entity) {
-        return entity.toJSON();
+        return entity?.toJSON();
     }
 }
 
-export default class UserRepository {
+class UserRepository {
     constructor(userModel, userMapper = new Mapper()) {
         this.model = userModel;
         this.mapper = userMapper;
@@ -51,3 +51,5 @@ export default class UserRepository {
         return users.map((u) => this.mapper.toDomain(u));
     }
 }
+
+module.exports = UserRepository;
