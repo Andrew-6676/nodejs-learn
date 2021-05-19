@@ -1,7 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const express = require('express');
 const validator = require('../validation/validators');
-const { uuid, user, newUser } = require('../validation/schemas');
+const { user, newUser } = require('../validation/user-schemas');
+const { uuid } = require('../validation/common-schemas');
 const UserService = require('../../services/user-service');
 
 const userRouter = express.Router();

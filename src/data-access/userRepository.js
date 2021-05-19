@@ -1,10 +1,19 @@
 const { Op } = require('sequelize');
+const { GroupModel } = require('../models');
 
 class Mapper {
     toDomain(entity) {
         return entity?.toJSON();
     }
 }
+
+const include = {
+    model: GroupModel,
+    attributes: ['name', 'permissions'],
+    through: {
+        attributes: []
+    }
+};
 
 class UserRepository {
     constructor(userModel, userMapper = new Mapper()) {
@@ -13,13 +22,14 @@ class UserRepository {
     }
 
     async getById(id) {
-        const user = await this.model.findByPk(id);
+        const user = await this.model.findByPk(id, { include });
         return this.mapper.toDomain(user);
     }
 
     async getAll() {
         const users = await this.model.findAll({
-            where: { isDeleted: false }
+            where: { isDeleted: false },
+            include
         });
         return users.map((u) => this.mapper.toDomain(u));
     }

@@ -3,6 +3,7 @@ const express = require('express');
 const errorHandler = require('./api/middlewares/error-handler');
 const requestLogger = require('./api/middlewares/request-logger');
 const userRouter = require('./api/routers/user-router');
+const groupRouter = require('./api/routers/group-router');
 const config = require('./config/config');
 const logger = require('./config/logging');
 const { connect } = require('./data-access/connection');
@@ -13,6 +14,7 @@ app.use(requestLogger);
 app.use(express.json());
 
 app.use('/users', userRouter);
+app.use('/groups', groupRouter);
 app.use(errorHandler);
 
 connect()

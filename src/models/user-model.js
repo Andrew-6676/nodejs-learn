@@ -1,17 +1,17 @@
-const { Model, DataTypes } = require('sequelize');
-const uuid = require('uuid');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 const { sequelize } = require('../data-access/connection');
 
-const UserModel = Model.init(
+class UserModel extends Model {}
+UserModel.init(
     {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
             primaryKey: true,
-            defaultValue: () => uuid.v4()
+            defaultValue: Sequelize.UUIDV4
         },
         login: DataTypes.STRING,
         password: DataTypes.STRING,
-        age: DataTypes.NUMBER,
+        age: DataTypes.INTEGER,
         isDeleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false

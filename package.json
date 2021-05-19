@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Andrew-6676/nodejs-learn#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.23.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",

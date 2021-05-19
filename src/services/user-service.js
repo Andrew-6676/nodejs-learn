@@ -1,6 +1,6 @@
 const logger = require('../config/logging');
 const UserRepository = require('../data-access/userRepository');
-const UserModel = require('../models/user-model');
+const { UserModel } = require('../models');
 
 class UserService {
     constructor() {

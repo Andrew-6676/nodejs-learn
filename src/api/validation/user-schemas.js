@@ -1,17 +1,7 @@
-const commonProperties = {
+const commonUserProperties = {
     login: { type: 'string', minLength: 6 },
     password: { type: 'string', minLength: 8, pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$' },
     age: { type: 'number', minimum: 4, maximum: 130 }
-};
-
-const uuid = {
-    type: 'object',
-    properties: {
-        id: {
-            type: 'string',
-            format: 'uuid'
-        }
-    }
 };
 
 const user = {
@@ -21,7 +11,7 @@ const user = {
             type: 'string',
             format: 'uuid'
         },
-        ...commonProperties,
+        ...commonUserProperties,
         isDeleted: { type: 'boolean' }
     },
     required: ['id', 'login', 'password', 'age', 'isDeleted'],
@@ -30,13 +20,12 @@ const user = {
 
 const newUser = {
     type: 'object',
-    properties: commonProperties,
+    properties: commonUserProperties,
     required: ['login', 'password', 'age'],
     additionalProperties: false
 };
 
 module.exports = {
-    uuid,
     user,
     newUser
 };

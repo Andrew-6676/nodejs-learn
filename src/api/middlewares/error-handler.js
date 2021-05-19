@@ -1,4 +1,4 @@
-const { StatusCodes, statusCode } = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
 const logger = require('../../config/logging');
 
 const handler = (err, req, res, next) => {
@@ -6,7 +6,7 @@ const handler = (err, req, res, next) => {
         res.status(err.status).send(err.message);
     } else {
         logger.error(err.stack);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(statusCode(StatusCodes.INTERNAL_SERVER_ERROR));
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(StatusCodes.INTERNAL_SERVER_ERROR);
     }
     next();
 };
