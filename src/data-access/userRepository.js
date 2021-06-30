@@ -21,6 +21,14 @@ class UserRepository {
         this.mapper = userMapper;
     }
 
+    async findUser(condition) {
+        const user = await this.model.findOne({
+            where: condition,
+            include
+        });
+        return user?.toJSON();
+    }
+
     async getById(id) {
         const user = await this.model.findByPk(id, { include });
         return this.mapper.toDomain(user);

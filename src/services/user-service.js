@@ -35,6 +35,10 @@ class UserService {
     async getAutoSuggestUsers(loginSubstring, limit) {
         return await this.userRepository.autoSuggestUsers(loginSubstring, limit);
     }
+
+    async findUser(username, password) {
+        return await this.userRepository.findUser({ login: username, password });
+    }
 }
 
 module.exports = new UserService();
