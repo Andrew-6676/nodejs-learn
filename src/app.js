@@ -1,6 +1,6 @@
 const express = require('express');
 
-const errorHandler = require('./api/middlewares/error-handler');
+const { errorHandler } = require('./api/middlewares/error-handler');
 const requestLogger = require('./api/middlewares/request-logger');
 const userRouter = require('./api/routers/user-router');
 const groupRouter = require('./api/routers/group-router');
@@ -10,17 +10,20 @@ const { connect } = require('./data-access/connection');
 
 const app = express();
 
-app.use(requestLogger);
-app.use(express.json());
+process.on('uncaughtException', (err, origin) => {
+    logger.error(`Caught exception:${err}\nException origin: ${origin}`);
+});
 
-app.use('/users', userRouter);
-app.use('/groups', groupRouter);
-app.use(errorHandler);
+process.on('unhandledRejection', (reason, p) => {
+    logger.error(`Unhandled Rejection at: ${p}, reason: ${reason}`);
+});
+
+app.use(express.json()).use(requestLogger).use('/users', userRouter).use('/groups', groupRouter).use(errorHandler);
 
 connect()
     .then(() => {
         app.listen(config.PORT, () => {
-            logger.info(`Task_3 app listening at http://localhost:${config.PORT}`);
+            logger.info(`Task_5 app listening at http://localhost:${config.PORT}`);
         });
     })
     .catch((error) => {

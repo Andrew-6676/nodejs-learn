@@ -9,7 +9,11 @@ GroupModel.init(
             primaryKey: true,
             defaultValue: Sequelize.UUIDV4
         },
-        name: DataTypes.STRING,
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
         permissions: DataTypes.ARRAY(DataTypes.STRING)
     },
     { sequelize, modelName: 'group', timestamps: false }

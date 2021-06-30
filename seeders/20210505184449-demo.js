@@ -22,7 +22,8 @@ module.exports = {
             age: Sequelize.DataTypes.INTEGER,
             isDeleted: {
                 type: Sequelize.DataTypes.BOOLEAN,
-                defaultValue: false
+                defaultValue: false,
+                field: 'is_deleted'
             }
         });
         await queryInterface.createTable('usergroups', {
@@ -56,35 +57,35 @@ module.exports = {
                     login: 'Jane 1',
                     password: 'pass',
                     age: 44,
-                    isDeleted: false
+                    is_deleted: false
                 },
                 {
                     id: 'ce1e8a97-b0da-4d73-8ea7-8fc688ee64e9',
                     login: 'Jane 2',
                     password: 'pass',
                     age: 55,
-                    isDeleted: false
+                    is_deleted: false
                 },
                 {
                     id: '63f7f7a5-10a0-4665-919e-a777321854b3',
                     login: 'Jone',
                     password: 'pass2',
                     age: 66,
-                    isDeleted: false
+                    is_deleted: false
                 },
                 {
                     id: '4da3bb75-601a-4240-84c4-927ca284ce0f',
                     login: 'Jone 2',
                     password: 'pass3',
                     age: 77,
-                    isDeleted: false
+                    is_deleted: false
                 },
                 {
                     id: '66297e0a-44f7-46f7-a602-845d9ba985d5',
                     login: 'Jone 3',
                     password: 'pass2',
                     age: 88,
-                    isDeleted: false
+                    is_deleted: false
                 }
             ],
             {}

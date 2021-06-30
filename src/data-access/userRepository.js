@@ -56,6 +56,7 @@ class UserRepository {
     async autoSuggestUsers(loginSubstring, limit) {
         const users = await this.model.findAll({
             where: { [Op.and]: [{ login: { [Op.startsWith]: loginSubstring } }, { isDeleted: false }] },
+            order: [['login', 'ASC']],
             limit
         });
         return users.map((u) => this.mapper.toDomain(u));

@@ -10,9 +10,9 @@ class GroupService {
 
     async add(group) {
         group.isDeleted = false;
-        const newgroup = await this.groupRepository.create(group);
-        logger.debug(`New group created: ${newgroup.id}`);
-        return newgroup.id;
+        const newGroup = await this.groupRepository.create(group);
+        logger.debug(`New group created: ${newGroup.id}`);
+        return newGroup.id;
     }
 
     async update(id, updatedgroup) {
@@ -25,11 +25,11 @@ class GroupService {
         return await this.groupRepository.delete(id);
     }
 
-    async get(id) {
-        if (id) {
-            return await this.groupRepository.getById(id);
-        }
+    async getById(id) {
+        return await this.groupRepository.getById(id);
+    }
 
+    async getAll() {
         return await this.groupRepository.getAll();
     }
 
@@ -38,4 +38,4 @@ class GroupService {
     }
 }
 
-module.exports = GroupService;
+module.exports = new GroupService();

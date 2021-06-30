@@ -24,11 +24,11 @@ class UserService {
         return await this.userRepository.delete(id);
     }
 
-    async get(id) {
-        if (id) {
-            return await this.userRepository.getById(id);
-        }
+    async getById(id) {
+        return await this.userRepository.getById(id);
+    }
 
+    async getAll() {
         return await this.userRepository.getAll();
     }
 
@@ -37,4 +37,4 @@ class UserService {
     }
 }
 
-module.exports = UserService;
+module.exports = new UserService();

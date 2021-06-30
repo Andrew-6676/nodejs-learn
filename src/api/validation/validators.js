@@ -2,6 +2,8 @@ const Ajv = require('ajv');
 const { StatusCodes } = require('http-status-codes');
 const addFormats = require('ajv-formats');
 
+const logger = require('../../config/logging');
+
 const ajv = new Ajv({
     allErrors: true
 });
@@ -9,7 +11,7 @@ addFormats(ajv);
 
 const errorResponse = (schemaErrors) => {
     const errors = schemaErrors.map((error) => {
-        console.log(error);
+        logger.error(error);
         return {
             path: error.instancePath,
             message: error.message

@@ -1,4 +1,4 @@
-const { sequelize } = require('../data-access/connection');
+const { sequelize } = require('./connection');
 const { UserModel } = require('../models');
 
 class Mapper {
@@ -32,23 +32,26 @@ class GroupRepository {
         return groups.map((u) => this.mapper.toDomain(u));
     }
 
-    create(group) {
+    async create(group) {
         return this.groupModel.create(group);
     }
 
-    update(id, group) {
+    async update(id, group) {
         return this.groupModel.update(group, {
             where: { id }
         });
     }
 
-    delete(id) {
+    async delete(id) {
         return this.groupModel.destroy({ where: { id } });
     }
 
     async addUsersToGroup(gid, uids) {
-        return await sequelize.transaction((t) => {
-            return Promise.all[uids.map((uid) => this.userGroupsModel.create({ gid, uid }))];
+        return await sequelize.transaction((transaction) => {
+            return this.userGroupsModel.bulkCreate(
+                uids.map((uid) => ({ gid, uid })),
+                { transaction }
+            );
         });
     }
 }

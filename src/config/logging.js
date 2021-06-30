@@ -1,61 +1,71 @@
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp } = format;
+
 const winston = require('winston');
 
 const config = require('./config');
 
-const _format = winston.format.combine(winston.format.timestamp(), winston.format.prettyPrint());
+const myFormat = combine(timestamp());
+
+const commonOptions = {
+    format: myFormat,
+    timestamp: true,
+    json: true,
+    maxsize: 1024 * 5000,
+    maxFiles: 5,
+    colorize: false
+};
 
 const options = {
     fileUnhandled: {
-        format: _format,
-        level: 'error',
         filename: `${config.LOGS_DIR}/exceptions.log`,
         handleExceptions: true,
-        json: true,
-        maxsize: 1024 * 5000,
-        maxFiles: 5,
-        colorize: false
+        level: 'error',
+        ...commonOptions
     },
     fileError: {
-        format: _format,
-        level: 'error',
         filename: `${config.LOGS_DIR}/errors.log`,
-        json: true,
-        maxsize: 1024 * 5000,
-        maxFiles: 5,
-        colorize: false
+        level: 'error',
+        ...commonOptions
     },
     fileInfo: {
-        format: _format,
-        level: 'info',
         filename: `${config.LOGS_DIR}/app.log`,
+        level: 'info',
         handleExceptions: true,
-        json: true,
-        maxsize: 1024 * 5000,
-        maxFiles: 5,
-        colorize: false
+        ...commonOptions
     }
 };
 
-const logger = winston.createLogger({
-    // transports: [new winston.transports.File(options.fileError), new winston.transports.File(options.fileInfo)],
-    // exceptionHandlers: [new winston.transports.File(options.fileUnhandled)]
+const logger = createLogger({
+    transports: [new transports.File(options.fileError), new transports.File(options.fileInfo)],
+    exceptionHandlers: [new transports.File(options.fileUnhandled)]
 });
 
-console.log('=========================>', process.env.NODE_ENV);
+// const myFormat2 = format((info, opts) => {
+//     console.log('=====>', info, opts);
+//     return info;
+// });
 
 if (process.env.NODE_ENV === 'development') {
     logger.add(
         new winston.transports.Console({
             level: 'debug',
-            format: winston.format.combine(winston.format.colorize(), winston.format.cli()),
             handleExceptions: true,
-            colorize: true
+            colorize: true,
+            format: winston.format.combine(
+                // myFormat2(),
+                format.splat(),
+                timestamp(),
+                winston.format.cli()
+            )
         })
     );
 }
 
-logger.stream = {
-    write: (message) => logger.info(message)
-};
+logger.debug(`ENV =========================> ${process.env.NODE_ENV}`);
+
+// logger.stream = {
+//     write: (message) => logger.info(message)
+// };
 
 module.exports = logger;

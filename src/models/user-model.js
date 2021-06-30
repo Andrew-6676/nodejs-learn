@@ -14,7 +14,8 @@ UserModel.init(
         age: DataTypes.INTEGER,
         isDeleted: {
             type: DataTypes.BOOLEAN,
-            defaultValue: false
+            defaultValue: false,
+            field: 'is_deleted'
         }
     },
     { sequelize, modelName: 'user', timestamps: false }
