@@ -1,5 +1,5 @@
 const express = require('express');
-var cors = require('cors');
+const cors = require('cors');
 
 const { errorHandler } = require('./api/middlewares/error-handler');
 const auth = require('./api/middlewares/auth');

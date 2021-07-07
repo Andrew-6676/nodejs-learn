@@ -9,7 +9,13 @@
     "seed": "npx sequelize-cli db:seed:all",
     "seed:down": "npx sequelize-cli db:seed:undo:all",
     "lint": "eslint ./ --ignore-path .gitignore --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -24,9 +30,12 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.23.0",
+    "jest": "^27.0.6",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "sequelize-mock": "^0.10.2",
+    "supertest": "^6.1.3"
   },
   "dependencies": {
     "ajv": "^8.0.5",
